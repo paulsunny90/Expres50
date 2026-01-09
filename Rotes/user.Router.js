@@ -1,12 +1,20 @@
 //16
 import express, { Router } from "express"
 
-const routes = Router.express()
+const routes = express.Router()
 
 import
 {
-    Amdin
+    crateUser,
+    FindId,
+    putdata,
+    deletedata
 
 }from "../controllers/user.controller.js"
 
-routes 
+routes.post("/",crateUser);
+routes.get("/:id",FindId)
+routes.put("/:id",putdata)
+routes.delete("/:id",deletedata)
+
+export default routes
