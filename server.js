@@ -1,4 +1,6 @@
 import express from "express"
+import userRouter from "./Rotes/user.Router.js"
+
 const app = express()
 
 
@@ -46,7 +48,9 @@ const PORT =3000
 //     res.send("massage");
 // })
 
-// express.static("public")
+app.use(express.static("public"))
+app.use(express.json())
+
 
 //8
 // app.get("/msg",(req,res)=>{
@@ -59,12 +63,65 @@ const PORT =3000
 // })
 
 //10
-app.get("/msg",(req,res)=>{
-    req.header("user-agent");
+// app.get("/msg",(req,res)=>{
+//     req.header("user-agent");
+// })
+
+//12
+// app.use((req,res,next)=>{
+//      console.log(req.method,req.url)
+//      next()
+// })
+
+
+// app.get("/home",(req,res)=>{
+//     res.send("home page")
+//    ;
+// })
+
+
+//13
+// const authMidwer = (req, res, next) => {
+//   const token = req.query?.token;
+
+//   if (token !== "123") {
+//     return res.status(401).send("Unauthorized");
+//   }
+
+//   next();
+// };
+
+// app.get("/dashbord",authMidwer,(req,res)=>{
+//     res.send('welocome to dashbored')
+// })
+
+// 14x
+// app.post("/",(req,res)=>{
+    
+// const {a,b}=req.body
+// res.json({result: a+b })
+// })
+
+// 15
+
+// app.use(express.urlencoded({extended:true}))
+
+// app.post("/form",(req,res)=>{
+//     console.log(req.body)
+//     const {name,email}=req.body
+//     res.send(`name:${name},email:${email}`)
+// })
+
+const adminMidware =(req,res,next)=>{
+    res.locals.user='Admin'
+ 
+     next()
+}
+app.get("/mid",adminMidware,(req,res)=>{
+    res.send(`welcome${res.locals.user}`)
+
 })
-
-
-
+app.use('/user',userRouter)
 
 
 app.listen(PORT,()=>{
