@@ -1,7 +1,9 @@
 import express from "express"
-import userRouter from "./Rotes/user.Router.js"
+import  coonectDb from "./Config/User.db.js"
+// import userRouter from "./Rotes/user.Router.js"
 
 const app = express()
+
 
 
 const PORT =3000
@@ -112,18 +114,49 @@ app.use(express.json())
 //     res.send(`name:${name},email:${email}`)
 // })
 
-const adminMidware =(req,res,next)=>{
-    res.locals.user='Admin'
- 
-     next()
-}
-app.get("/mid",adminMidware,(req,res)=>{
-    res.send(`welcome${res.locals.user}`)
+// 17
+// const adminMidware =(req,res,next)=>{
+//     res.locals.user ='Admin'
+//      next()
+// }
+// app.get("/admin",adminMidware,(req,res)=>{
+//     res.send(`welcome${res.locals.user}`)
 
-})
-app.use('/user',userRouter)
+// })
+// app.use('/user',userRouter)
+
+// 18
+//  const timMidware=(req,res,next)=>{
+//     res.locals.requestTime =Date.now();
+//     next()
+//  }
+// app.get("/time",timMidware,(req,res)=>{
+//     res.send(`time: ${ res.locals.requestTime }`)
+// })
+
+// 19
+// app.get("/err",(req,res)=>{
+//     throw new Error("somthin erore")
+
+// })
+
+//  app.use((err,req,res,next)=>{
+//     console.log(err.static)
+//     res.status(500).json({massage:"err"})
+//  })
+
+//20
+// const books = ["paul","abhi","lkshmi","anju","alen"] 
+
+// app.get("/books",(req,res)=>{
+//     res.json(books)
+
+// })
 
 
+
+
+coonectDb()
 app.listen(PORT,()=>{
  console.log(`Server running on http://localhost:${PORT}/`)
 })
